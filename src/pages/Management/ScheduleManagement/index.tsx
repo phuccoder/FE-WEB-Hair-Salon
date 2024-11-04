@@ -1,4 +1,4 @@
-import { Calendar, Tag } from "antd";
+import { Calendar, Popover, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import { RootState } from "../../../core/store/store";
 import { scheduleApi } from "../../../service/scheduleApi";
 import ModalAddSchedule from "./components/ModalAddSchedule";
 import ModalDeleteSchedule from "./components/ModalDeleteSchedule";
+import DetailSchedule from "./components/DetailSchedule";
 
 const ScheduleManagement = () => {
   const [schedule, setSchedule] = useState<any[]>([]);
@@ -39,12 +40,22 @@ const ScheduleManagement = () => {
       <ul style={{ padding: 0, listStyle: "none" }}>
         {items.map((item) => (
           <li key={item.scheduleID} className="mb-2">
-            <Tag color="default">
-              {item.startTime}-{item.endTime}{" "}
-              <span className="text-orange-500 font-bold">
-                {item.stylistName}
-              </span>
-            </Tag>
+            <Popover
+              content={<DetailSchedule id={item.scheduleID} />}
+              trigger={"click"}
+            >
+              <Tag
+                className="!rounded-none"
+                color={
+                  item.scheduleStatus === "AVAILABLE"
+                    ? "green-inverse"
+                    : "red-inverse"
+                }
+              >
+                {item.startTime}-{item.endTime}{" "}
+                <span className="text-white font-bold">{item.stylistName}</span>
+              </Tag>
+            </Popover>
           </li>
         ))}
       </ul>

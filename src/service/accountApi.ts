@@ -25,4 +25,12 @@ export const accountApi = {
       throw error.response.data;
     }
   },
+  getAccountByID: async (id: number) => {
+    try {
+      const response = await api.get(`v1/account/${id}`);
+      return response.data;
+    } catch (error: any) {
+      throw error.response.data;
+    }
+  }
 };

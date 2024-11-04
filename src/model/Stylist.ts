@@ -7,6 +7,7 @@ export interface Stylist {
   stylistStatus: boolean;
   role: string;
   stylistInfor: string;
+  stylistAvatar: string;
 }
 
 export interface StylistRequest {
@@ -15,4 +16,3 @@ export interface StylistRequest {
   stylistEmail: string;
   stylistInfor: string;
 }
-

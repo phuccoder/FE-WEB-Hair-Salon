@@ -1,7 +1,8 @@
-import { Button, Popconfirm, Table, Tag } from "antd";
+import { Button, Popconfirm, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Column } from "../../../components/Table/TableComponent";
+import TableUI from "../../../components/Table/TableUI";
 import { Account } from "../../../model/Account";
 import { accountApi } from "../../../service/accountApi";
 import ModalAddAccount from "./components/ModalAddAccount";
@@ -54,7 +55,7 @@ const UserManagement = () => {
       render: (data: any) => (
         <div className="flex gap-2">
           <Popconfirm
-            title={"Delete this combo"}
+            title={"Delete this account"}
             okText="Yes"
             cancelText="No"
             onConfirm={() => handleDelete(data)}
@@ -101,7 +102,7 @@ const UserManagement = () => {
   return (
     <>
       <ModalAddAccount setRender={setRender} />
-      <Table className="mt-5" loading={loading} columns={column} dataSource={data && data} />
+      <TableUI className="mt-5" loading={loading} columns={column} dataSource={data && data} />
     </>
   );
 };

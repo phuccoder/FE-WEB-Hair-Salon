@@ -42,26 +42,26 @@ const AppLayout: React.FC = () => {
   const { isDarkMode } = useContext(ThemeContext);
 
   const items: MenuItem[] = [
-    (userLogin &&
-      userLogin.role === "admin") &&
+    userLogin &&
+      userLogin.role === "admin" &&
       getItem("Dashboard", "", <FaChartPie size={20} />),
-    (userLogin &&
-      userLogin.role === "admin") &&
+    userLogin &&
+      userLogin.role === "admin" &&
       getItem(
         "Category Management",
         "category-management",
         <BiSolidCategory size={20} />
       ),
-    (userLogin &&
-      userLogin.role === "admin") &&
+    userLogin &&
+      userLogin.role === "admin" &&
       getItem("User Management", "user-management", <FaUsers size={20} />, [
         getItem("Admin", "admin", <RiAdminFill size={20} />),
         getItem("Manager", "manager", <MdManageAccounts size={20} />),
         getItem("Staff", "staff", <BsPersonWorkspace size={20} />),
         getItem("User", "user", <FaUser size={20} />),
       ]),
-    (userLogin &&
-      userLogin.role === "admin") &&
+    userLogin &&
+      userLogin.role === "admin" &&
       getItem(
         "Service Management",
         "service-management",
@@ -74,11 +74,18 @@ const AppLayout: React.FC = () => {
           ),
         ]
       ),
-    (userLogin &&
-      userLogin.role === "admin") &&
+    userLogin &&
+      userLogin.role === "admin" &&
       getItem(
         "Stylist Management",
         "stylist-management",
+        <IoIosCut size={20} />
+      ),
+    userLogin &&
+      userLogin.role === "admin" &&
+      getItem(
+        "Appointment Management",
+        "appointment-management",
         <IoIosCut size={20} />
       ),
     getItem(
@@ -86,15 +93,15 @@ const AppLayout: React.FC = () => {
       "schedule-management",
       <RiCalendarScheduleFill size={20} />
     ),
-    (userLogin &&
-      userLogin.role === "admin" )&&
+    userLogin &&
+      userLogin.role === "admin" &&
       getItem(
         "Voucher Management",
         "voucher-management",
         <MdDiscount size={20} />
       ),
-    (userLogin &&
-      userLogin.role === "admin") &&
+    userLogin &&
+      userLogin.role === "admin" &&
       getItem(
         "Payment Management",
         "payment-management",

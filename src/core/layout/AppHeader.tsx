@@ -6,9 +6,15 @@ import { FaUserAstronaut } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { ThemeContext } from "../../config/context/ThemeContext";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/slice/userSlice";
 
 const AppHeader = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   const items: MenuProps["items"] = [
     {
       label: <p>User name</p>,
@@ -19,9 +25,13 @@ const AppHeader = () => {
       type: "divider",
     },
     {
-      label: <Link to={'/'} className="!text-red-500">Logout</Link>,
+      label: (
+        <Link onClick={handleLogout} to={"/"} className="!text-red-500">
+          Logout
+        </Link>
+      ),
       key: "3",
-      icon: <BiLogOut className="!text-red-500" size={20} />
+      icon: <BiLogOut className="!text-red-500" size={20} />,
     },
   ];
 

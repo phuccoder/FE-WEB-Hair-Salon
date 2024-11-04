@@ -18,6 +18,9 @@ interface DashboardProps {
   formItem?: React.ReactElement;
   action?: boolean;
   title: string;
+  typeForm?: "json" | "formData";
+  uniqueName?: string;
+  setImage?: any;
 }
 
 const TableComponent = ({
@@ -25,7 +28,10 @@ const TableComponent = ({
   apiUri,
   formItem = <></>,
   action = true,
-  title =""
+  title = "",
+  typeForm = "json",
+  uniqueName = "",
+  setImage,
 }: DashboardProps) => {
   const [dataSource, setDataSource] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -43,10 +49,21 @@ const TableComponent = ({
   const handleEditModal = (values: any) => {
     setOpen(true);
     form.setFieldsValue(values);
+    setImage([
+      {
+        uid: -1,
+        name: values.serviceImage,
+        status: "done",
+        url: values.serviceImage,
+      },
+    ]);
   };
 
   const handleCloseModal = () => {
     form.resetFields();
+    if (setImage) {
+      setImage([]);
+    }
     setOpen(false);
   };
 
@@ -64,13 +81,41 @@ const TableComponent = ({
 
   const handleFinish = async (values: any) => {
     try {
+      const headers =
+        typeForm === "formData"
+          ? { "Content-Type": "multipart/form-data" }
+          : {};
       setLoading(true);
-      if (values.serviceID) {
-        await api.put(`${apiUri}/update/${values.serviceID}`, values);
-        toast.success(`Update ${title} success`);
+      const formData = new FormData();
+      if (typeForm === "formData") {
+        formData.append(
+          "serviceRequest",
+          JSON.stringify({
+            serviceName: values.serviceName,
+            servicePrice: values.servicePrice,
+          })
+        );
+        const dataImage = values.serviceImage.file.originFileObj;
+        formData.append("file", dataImage);
+        if (values.serviceID) {
+          await api.put(`${apiUri}/update/${values.serviceID}`, formData, {
+            headers: headers,
+          });
+          toast.success(`Update ${title} success`);
+        } else {
+          await api.post(`${apiUri}/${uniqueName}`, formData, {
+            headers: headers,
+          });
+          toast.success(`Add new ${title} success`);
+        }
       } else {
-        await api.post(`${apiUri}`, values);
-        toast.success(`Add new ${title} success`);
+        if (values.serviceID) {
+          await api.put(`${apiUri}/update/${values.serviceID}`, values);
+          toast.success(`Update ${title} success`);
+        } else {
+          await api.post(`${apiUri}/${uniqueName}`, values);
+          toast.success(`Add new ${title} success`);
+        }
       }
       fetchData();
       handleCloseModal();

@@ -1,7 +1,6 @@
-import { Form, Modal, Select } from "antd";
+import { Button, Form, Modal, Select } from "antd";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import ButtonComponent from "../../../../components/Button/ButtonComponent";
 import { scheduleApi } from "../../../../service/scheduleApi";
 
 interface ModalDeleteSchedule {
@@ -66,9 +65,9 @@ const ModalDeleteSchedule = ({ setRender }: ModalDeleteSchedule) => {
 
   return (
     <>
-      <ButtonComponent onClick={() => setOpen(true)}>
+      <Button type="primary" danger onClick={() => setOpen(true)}>
         Delete Schedule
-      </ButtonComponent>
+      </Button>
       <Modal
         loading={loading}
         onCancel={handleCancel}

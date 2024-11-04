@@ -1,4 +1,4 @@
-import { Button, Popconfirm, Tag } from "antd";
+import { Button, Image, Popconfirm, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Column } from "../../../components/Table/TableComponent";
@@ -16,6 +16,12 @@ const StylistManagement = () => {
       title: "#",
       dataIndex: "stylistID",
       key: "id",
+    },
+    {
+      title: "stylistAvatar",
+      dataIndex: "stylistAvatar",
+      key: "avatar",
+      render: (data) => <Image src={data} width={150} height={150} />,
     },
     {
       title: "Name",

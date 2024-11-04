@@ -15,6 +15,7 @@ import ComboManagement from "./pages/Management/ServiceManagement/Combo";
 import ServiceManagementTable from "./pages/Management/ServiceManagement/Service";
 import StylistManagement from "./pages/Management/StylistManagement";
 import UserManagement from "./pages/Management/UserManagement";
+import AppointmentManagement from "./pages/Management/AppointmentManagement";
 
 const ProtectedRoute = ({
   isAuthenticated,
@@ -60,6 +61,10 @@ const App = () => {
             {
               path: "schedule-management",
               element: <ScheduleManagement />
+            },
+            {
+              path: "appointment-management",
+              element: <AppointmentManagement />
             }
           ],
         },
